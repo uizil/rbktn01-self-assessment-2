@@ -27,11 +27,29 @@
   *  newTree.children[1].children[1].value // 14
   *  root1.value // still 1
   */
-
 var Tree = function(value) {
+
   this.value = value;
-  this.children = [];
+  this.children = []
+  this.index = -1;
+
 };
 
+Tree.prototype.addChild = function(value){
 
+  this.children.push(new Tree(value));
+  this.index += 1;
+ return this.children[this.index];
+}
 
+Tree.prototype.map = function(f) {
+  
+  var test = this
+  test.value = f(this.value)
+
+  for(var i = 0; i < test.children.length; i++) {
+    test.children[i].map(f);
+  }
+
+  return test;
+}
